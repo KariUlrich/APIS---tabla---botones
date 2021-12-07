@@ -24,7 +24,8 @@ const crearBotonesBorrar = () => {
     }
   }
 }
-//creo la funcion de borrar al usuario y ejecuto la funcion que me trae la info sin ese usuario
+
+//creo la funcion de borrar al usuario y ejecuto la funcion GET
 const borrarUsuario = (id) => {
   console.log("Borrando usuario", id)
   fetch(`https://601da02bbe5f340017a19d60.mockapi.io/users/${id}`, {
@@ -40,27 +41,37 @@ const borrarUsuario = (id) => {
 formEditar.style.display = 'none';
 
 // creo la funcion de editar un usuario, ejecuto la funcion de traer la info actualizada y la que me aparezca el value
-const editarUsuario = (id) => {
-  console.log("Usuario editado", id)
-  fetch(`https://601da02bbe5f340017a19d60.mockapi.io/users/${id}`, {
-    method: "PUT",
-    body: JSON.stringify({
-      address: inputDireccionEditar.value,
-      email: inputEmailEditar.value,
-      fullname: inputNombreEditar.value,
-      phone: inputTelefonoEditar.value,
-    }),
-  })
-  .then((res) => res.json())
-  .then((data) => {
-    obtenerUsuarios()
-  })
-}
+// const editarUsuario = (id) => {
+//   console.log("Usuario editado", id)
+//   fetch(`https://601da02bbe5f340017a19d60.mockapi.io/users/${id}`, {
+//     method: "PUT",
+//     body: JSON.stringify({
+//       address: inputDireccionEditar.value,
+//       email: inputEmailEditar.value,
+//       fullname: inputNombreEditar.value,
+//       phone: inputTelefonoEditar.value,
+//     }),
+//   })
+//   .then((res) => res.json())
+//   .then((data) => {
+//     obtenerUsuarios()
+//   })
+// }
 
-botonUsuarioEditado.onclick = (e) => {
-  e.preventDefault();
-  obtenerUsuarios();
+// botonUsuarioEditado.onclick = () => {
+//   obtenerUsuarios();
   
+// };
+
+const editarUsuario = (id) => {
+  fetch(`https://601da02bbe5f340017a19d60.mockapi.io/users/${id}`)
+    .then((res) => res.json())
+    .then((data) => {
+      inputDireccionEditar.value = data.address;
+      inputEmailEditar.value = data.email;
+      inputNombreEditar.value = data.fullname;
+      inputTelefonoEditar.value = data.phone;
+    });
 };
 
 // creo los botones editar, en el click veo el formulario de editar, ejecuto la funcion que edita el usuario pasandole el id
@@ -68,18 +79,30 @@ const crearBotonesEditar = () => {
   const botonesEditar = document.querySelectorAll(".boton-editar")
   for (let i = 0; i < botonesEditar.length; i++) {
     botonesEditar[i].onclick = () => {
+     formEditar.style.display = 'block';
      const idDelUsuarioAEditar = botonesEditar[i].dataset.id 
      editarUsuario(idDelUsuarioAEditar)
-     formEditar.style.display = 'block';
+     
      
      formEditar.onsubmit =(e) => {
       e.preventDefault()
-      inputNombreEditar.value = data.fullname
-      inputEmailEditar.value = data.email
-      inputTelefonoEditar.value = data.phone
-      inputDireccionEditar.value = data.address
-      editarUsuario()
-     }
+      fetch(`https://601da02bbe5f340017a19d60.mockapi.io/users/${id}`, {
+       method: "PUT",
+       body: JSON.stringify({
+       address: inputDireccionEditar.value,
+       email: inputEmailEditar.value,
+       fullname: inputNombreEditar.value,
+       phone: inputTelefonoEditar.value,
+    }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+  .then((res) => res.json())
+  .then((data) => {
+    obtenerUsuarios()
+  })    
+}
      
      //seleccionar el nuevo formulario creado
       //hacerme evento onsubmit 
@@ -122,7 +145,7 @@ const crearTablaHTML = (data) => {
     crearBotonesEditar()
 }
 
-// creo funcion que carga la info en la tabla
+// creo funcion que carga la info en la tabla y ejecuto la funcion de crear tabla y le paso la data
 const obtenerUsuarios = () => {
   fetch("https://601da02bbe5f340017a19d60.mockapi.io/users")
   .then((res) =>  res.json())
@@ -132,14 +155,11 @@ const obtenerUsuarios = () => {
   })
 }
 
-
-
-
 // funciones de eventos 
 
 obtenerUsuarios()
 
-
+// cuando hago submit al form creo el nuevo usuario y ejecuto la funcion GET
 formCrear.onsubmit = (e) => {
   e.preventDefault()
 
