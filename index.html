@@ -6,47 +6,71 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>85</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://kit.fontawesome.com/5f7fafbd10.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
-
-<form id="form-crear">
-  <label>Nombre
-  <input type="text" id="nombre">
-</label>
-<label>Email
-  <input type="email" id="email">
-</label>
-<label>Telefono
-  <input type="number" id="telefono">
-</label>
-<label>Direccion
-  <input type="text" id="direccion">
-</label>
-<input type="submit" value="Crear nuevo usuario">
-</form>
-
-
-<form id="form-editar" class="form-editar">
-  <label>Nombre
-  <input type="text" id="editar-nombre">
-</label>
-<label>Email
-  <input type="email" id="editar-email">
-</label>
-<label>Telefono
-  <input type="number" id="editar-telefono">
-</label>
-<label>Direccion
-  <input type="text" id="editar-direccion">
-</label>
-<input type="submit" value="Editar usuario" id="boton-usuario-editado">
-</form>
-
-
-  <table class="tabla-usuarios" id="tabla">
-    
+  <div class="modal-crear">
+    <form id="form-crear" class="form-crear">
+     <div>
+     <label>Nombre
+      <input type="text" id="nombre">
+     </label>
+    </div>
+    <div>
+     <label>Email
+      <input type="email" id="email">
+     </label>
+    </div>
+    <div>
+     <label>Telefono
+      <input type="number" id="telefono">
+     </label>
+    </div>
+    <div>
+     <label>Direccion
+      <input type="text" id="direccion">
+     </label>
+    </div>
+    <div>
+     <input type="submit" value="crear usuario" id="crear-nuevo-usuario">
+   </div>
+   </form>
+  </div>
    
+  <div class="div-boton">
+       <button class="boton-crear-usuario">Crear usuario</button>
+  </div>
+   
+
+  <div class="modal-editar">
+   <form id="form-editar" class="form-editar">
+    <div>
+     <label>Nombre
+     <input type="text" id="editar-nombre">
+   </label>
+    </div>
+    <div>
+   <label>Email
+     <input type="email" id="editar-email">
+   </label>
+   </div>
+   <div>
+   <label>Telefono
+     <input type="number" id="editar-telefono">
+   </label>
+   </div>
+   <div>
+   <label>Direccion
+     <input type="text" id="editar-direccion">
+   </label>
+   </div>
+   <div>
+   <input type="submit" value="Editar usuario" id="boton-usuario-editado">
+   </div>
+   </form>
+  </div>
+  <table class="tabla-usuarios" id="tabla">   
   </table>
 
   <script src="index.js"></script>

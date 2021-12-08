@@ -9,9 +9,35 @@ const inputEmailEditar = document.querySelector("#editar-email")
 const inputTelefonoEditar = document.querySelector("#editar-telefono")
 const inputDireccionEditar = document.querySelector("#editar-direccion")
 const botonUsuarioEditado = document.querySelector("#boton-usuario-editado")
+const botonCrearNuevoUsuario = document.querySelector("#crear-nuevo-usuario")
+
+const modalCrear = document.querySelector(".modal-crear")
+const modalEditar = document.querySelector(".modal-editar")
+const botonCrearUsuario = document.querySelector(".boton-crear-usuario") 
+
+modalCrear.style.display = "none"
+modalEditar.style.display = "none"
 
 
-// funciones auxiliares 
+botonCrearUsuario.onclick = () => {
+    modalCrear.style.display = "flex"
+
+}
+botonCrearNuevoUsuario.onclick = () => {
+    modalCrear.style.display = "none"
+}
+
+// hago el get para tener la info de la Api y ejecuto la funcion de crear tabla en HTML
+const obtenerUsuarios = () => {
+  fetch("https://601da02bbe5f340017a19d60.mockapi.io/users")
+  .then((res) =>  res.json())
+  .then((data) => {
+    crearTablaHTML(data)
+  })
+}
+
+obtenerUsuarios()
+
 
 //creo los botones eliminar y ejecuto la funcion de borrar al usuario
 const crearBotonesBorrar = () => {
@@ -38,31 +64,7 @@ const borrarUsuario = (id) => {
   })
 }
 
-formEditar.style.display = 'none';
-
-// creo la funcion de editar un usuario, ejecuto la funcion de traer la info actualizada y la que me aparezca el value
-// const editarUsuario = (id) => {
-//   console.log("Usuario editado", id)
-//   fetch(`https://601da02bbe5f340017a19d60.mockapi.io/users/${id}`, {
-//     method: "PUT",
-//     body: JSON.stringify({
-//       address: inputDireccionEditar.value,
-//       email: inputEmailEditar.value,
-//       fullname: inputNombreEditar.value,
-//       phone: inputTelefonoEditar.value,
-//     }),
-//   })
-//   .then((res) => res.json())
-//   .then((data) => {
-//     obtenerUsuarios()
-//   })
-// }
-
-// botonUsuarioEditado.onclick = () => {
-//   obtenerUsuarios();
-  
-// };
-
+// pongo el valor en el input
 const editarUsuario = (id) => {
   fetch(`https://601da02bbe5f340017a19d60.mockapi.io/users/${id}`)
     .then((res) => res.json())
@@ -74,12 +76,12 @@ const editarUsuario = (id) => {
     });
 };
 
-// creo los botones editar, en el click veo el formulario de editar, ejecuto la funcion que edita el usuario pasandole el id
+// creo los botones editar, en el click veo el formulario de editar, ejecuto la funcion para que me traiga los valores y hago el put
 const crearBotonesEditar = () => {
   const botonesEditar = document.querySelectorAll(".boton-editar")
   for (let i = 0; i < botonesEditar.length; i++) {
     botonesEditar[i].onclick = () => {
-     formEditar.style.display = 'block';
+     modalEditar.style.display = 'block';
      const idDelUsuarioAEditar = botonesEditar[i].dataset.id 
      editarUsuario(idDelUsuarioAEditar)
      
@@ -100,19 +102,12 @@ const crearBotonesEditar = () => {
   })
   .then((res) => res.json())
   .then((data) => {
-    obtenerUsuarios()
+  obtenerUsuarios()
   })    
 }
-     
-     //seleccionar el nuevo formulario creado
-      //hacerme evento onsubmit 
-      //adentro de ese evento leer los valores del form
-      //Mandarselo a la funcion editarUsuario 
-  //    editarUsuario(idDelUsuarioEditar)
-    }
-  }
 }
-
+}
+}
 
 // creo tabla en HTML
 const crearTablaHTML = (data) => {
@@ -125,8 +120,8 @@ const crearTablaHTML = (data) => {
       <td>${curr.address}</td>
       <td>${curr.phone}</td>
       <td>
-      <button class="boton-borrar" data-id="${curr.id}">Borrar usuario</button>
-      <button class="boton-editar" data-id="${curr.id}">Editar usuario</button>
+      <button class="boton-borrar" data-id="${curr.id}"><i class="fas fa-trash-alt"></i></button>
+      <button class="boton-editar" data-id="${curr.id}"><i class="far fa-edit"></i></button>
       </td>
     </tr>
     `
@@ -144,20 +139,6 @@ const crearTablaHTML = (data) => {
     crearBotonesBorrar()
     crearBotonesEditar()
 }
-
-// creo funcion que carga la info en la tabla y ejecuto la funcion de crear tabla y le paso la data
-const obtenerUsuarios = () => {
-  fetch("https://601da02bbe5f340017a19d60.mockapi.io/users")
-  .then((res) =>  res.json())
-  .then((data) => {
-    console.log(data)
-    crearTablaHTML(data)
-  })
-}
-
-// funciones de eventos 
-
-obtenerUsuarios()
 
 // cuando hago submit al form creo el nuevo usuario y ejecuto la funcion GET
 formCrear.onsubmit = (e) => {

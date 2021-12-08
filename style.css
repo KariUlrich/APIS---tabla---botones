@@ -1,29 +1,67 @@
+body {
+  margin: 30px;
+  background-color: rgb(248, 236, 193); ; ;
+}
 th, td {
-  /* border: 2px solid aquamarine; */
   padding: 5px
 }
-
-
 table {
-  width: 75%;
+  width: 100%;
   border-spacing: 5px;
   border-collapse: collapse;
 }
-
-/* 
-.col-email {
-  width: 700px
-} */
-
-
-/* tr:nth-child(odd) {
-  background-color: aquamarine;
-} */
-
 tr {
   border-bottom: 1px solid gray;
 }
 
-/* tr:hover {
-  background-color: aqua;
-} */
+.boton-borrar,
+.boton-editar {
+  background-color: rgb(253, 226, 152); 
+  border-color: rgb(243, 199, 133);
+  border-radius: 10px;
+  border-style: none;
+  padding: 5px;
+}
+
+.div-boton {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 90px;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.boton-crear-usuario {
+  background-color: rgb(253, 226, 152);
+  border-color: rgb(243, 199, 133);
+  border-radius: 10px;
+  border-style: none;
+  padding: 5px;
+}
+
+.modal-crear,
+.modal-editar {
+position: fixed;
+top: 100px;
+left: 500px;
+background-color: rgb(253, 226, 152); 
+width: 280px;
+height: 230px;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+border: 1px solid rgb(248, 219, 157);
+border-radius: 10px;
+}
+
+.modal-crear div {
+    margin-bottom: 15px;
+}
+.modal-editar div {
+    margin-bottom: 20px;
+}
+.modal-editar {
+  padding-top: 20px;
+  padding-left: 20px;
+}
